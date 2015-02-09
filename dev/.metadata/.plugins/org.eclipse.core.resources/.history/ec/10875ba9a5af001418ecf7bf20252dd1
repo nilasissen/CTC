@@ -1,0 +1,5 @@
+package com.CTC.util;
+
+public class Constant {
+public static String STATUS_CODE;
+}

@@ -1,0 +1,12 @@
+package com.CTC.async;
+
+import android.content.Context;
+import android.os.AsyncTask;
+
+public class WomanAlert extends AsyncTask<Void, Void, Void>{
+	Context mContext;
+
+	public void WomanAlert(Context context) {
+		this.mContext = context;
+	}
+}

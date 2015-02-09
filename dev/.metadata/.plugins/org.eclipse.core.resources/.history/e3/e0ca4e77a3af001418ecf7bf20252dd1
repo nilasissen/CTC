@@ -1,0 +1,30 @@
+package com.CTC.async;
+
+import android.content.Context;
+import android.os.AsyncTask;
+
+public class WomanAlert extends AsyncTask<Void, Void, Void>{
+	Context mContext;
+
+	public  WomanAlert(Context context) {
+		this.mContext = context;
+	}
+
+	@Override
+	protected Void doInBackground(Void... params) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected void onPostExecute(Void result) {
+		// TODO Auto-generated method stub
+		super.onPostExecute(result);
+	}
+
+	@Override
+	protected void onPreExecute() {
+		// TODO Auto-generated method stub
+		super.onPreExecute();
+	}
+}

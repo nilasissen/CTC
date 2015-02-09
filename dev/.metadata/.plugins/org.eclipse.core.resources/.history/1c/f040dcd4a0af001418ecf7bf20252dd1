@@ -1,0 +1,46 @@
+package com.CTC.activity;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+
+import com.CTC.R;
+
+public class Helpdesk extends Activity implements OnClickListener {
+	Button womenalert,emergencyalert, complianlauge,settings;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_helpdesk);
+		
+		initViews();
+		
+		womenalert.setOnClickListener(this);
+		emergencyalert.setOnClickListener(this);
+		complianlauge.setOnClickListener(this);
+		settings.setOnClickListener(this);
+		
+	}
+	private void initViews() {
+		// TODO Auto-generated method stub
+		womenalert = (Button) findViewById(R.id.womenalert);
+		emergencyalert = (Button) findViewById(R.id.emergencyalert);
+		complianlauge = (Button) findViewById(R.id.complianlauge);
+		settings = (Button) findViewById(R.id.settings);
+		
+	}
+	@Override
+	public void onClick(View arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+
+	
+
+
+
+}

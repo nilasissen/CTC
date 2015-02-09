@@ -1,0 +1,8 @@
+package com.CTC.util;
+
+public class Snippet {
+	public static void main(String[] args) {
+		com.CTC.util
+	}
+}
+
