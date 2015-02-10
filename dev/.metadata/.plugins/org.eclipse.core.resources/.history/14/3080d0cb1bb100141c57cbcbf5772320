@@ -1,26 +1,16 @@
 package com.CTC.activity;
 
+import android.R;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.CTC.R;
-
 public class EmergencyAlert extends Activity {
-
-	public EmergencyAlert(Helpdesk helpdesk) {
-		// TODO Auto-generated constructor stub
-	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_emergencyalert);
-	}
-
-	public void execute() {
-		// TODO Auto-generated method stub
-		
+		setContentView(R.layout.com.CTC.activity.Splash);
 	}
 
 }

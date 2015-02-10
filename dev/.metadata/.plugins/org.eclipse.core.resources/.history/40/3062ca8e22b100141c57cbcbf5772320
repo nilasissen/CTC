@@ -85,20 +85,7 @@ public class Helpdesk extends Activity implements OnClickListener {
 
 	private void EmergencyAlert()
 	{
-		setPositiveButton(android.R.string.yes,
-				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,
-							int which) {
-						// continue with delete
-						new EmergencyAlert(Helpdesk.this).execute();
-					}
-				})
-		
-	}
-
-	private void setPositiveButton(int yes,
-			android.content.DialogInterface.OnClickListener onClickListener) {
-		// TODO Auto-generated method stub
+			
 		
 	}
 }
