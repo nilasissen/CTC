@@ -45,7 +45,7 @@ public class Helpdesk extends Activity implements OnClickListener {
 			askConssent();
 			break;
 		case R.id.emergencyalert:
-
+			EmergencyAlert();
 			break;
 		case R.id.complianlauge:
 
@@ -83,4 +83,10 @@ public class Helpdesk extends Activity implements OnClickListener {
 						}).setIcon(android.R.drawable.ic_dialog_alert).show();
 	}
 
+	private void EmergencyAlert()
+	{
+			
+		
+	}
 }
+
