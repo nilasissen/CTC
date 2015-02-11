@@ -92,8 +92,8 @@ public class Helpdesk extends Activity implements OnClickListener {
 						// continue with delete
 						new EmergencyAlert(Helpdesk.this).execute();
 					}
-		});
-	
+				})
+		
 	}
 
 	private void setPositiveButton(int yes,

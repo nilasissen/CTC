@@ -14,10 +14,10 @@
 		<item value="org.eclipse.rcp:4.2.2.v20130129-152330-7IARAABrMQkGSvMgQnUlz-DQz00h"/>
 	</list>
 	<section name="CleanDialogSettings">
-		<item value="563" key="DIALOG_WIDTH"/>
+		<item value="583" key="DIALOG_WIDTH"/>
 		<item value="158" key="DIALOG_Y_ORIGIN"/>
+		<item value="406" key="DIALOG_HEIGHT"/>
 		<item value="429" key="DIALOG_X_ORIGIN"/>
-		<item value="386" key="DIALOG_HEIGHT"/>
 		<item value="true" key="TOGGLE_SELECTED"/>
 	</section>
 </section>
