@@ -7,6 +7,10 @@ import com.CTC.R;
 
 public class EmergencyAlert extends Activity {
 
+	public EmergencyAlert(Helpdesk helpdesk) {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -14,6 +18,9 @@ public class EmergencyAlert extends Activity {
 		setContentView(R.layout.activity_emergencyalert);
 	}
 
-	
+	public void execute() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

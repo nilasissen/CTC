@@ -20,4 +20,6 @@
 		<item value="429" key="DIALOG_X_ORIGIN"/>
 		<item value="true" key="TOGGLE_SELECTED"/>
 	</section>
+	<section name="NewWizardAction">
+	</section>
 </section>

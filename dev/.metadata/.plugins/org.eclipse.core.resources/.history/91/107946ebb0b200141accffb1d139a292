@@ -3,7 +3,6 @@ package com.CTC.activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -87,13 +86,7 @@ public class Helpdesk extends Activity implements OnClickListener {
 	private void EmergencyAlert()
 	{
 		Button emeralert = (Button) findViewById(R.id.emergencyalert);
-		emeralert.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				startActivity(new Intent("android.intent.action.EMERGENCYALERT"));
-			}
-		});
+	
 	}
 
 	
