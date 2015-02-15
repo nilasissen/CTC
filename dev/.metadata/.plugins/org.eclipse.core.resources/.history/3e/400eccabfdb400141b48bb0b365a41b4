@@ -25,7 +25,7 @@ import com.CTC.async.WomanAlert;
 public class Helpdesk extends Activity implements OnClickListener {
 	Button changeInfo, accident, women, complain, fire, medical, photo,
 			entertext, panic;
-	public Uri mMakePhotoUri;
+	private Uri mMakePhotoUri;
 	private File sdImageMainDirectory;
 	private Bitmap preview_bitmap;
 	final int REQUEST_FROM_CAMERA=1;
@@ -142,7 +142,7 @@ public class Helpdesk extends Activity implements OnClickListener {
 protected void startCameraActivity() {
 
 	Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-	 mMakePhotoUri = Uri.fromFile(sdImageMainDirectory);
+	Object mMakePhotoUri = Uri.fromFile(sdImageMainDirectory);
 	i.putExtra(MediaStore.EXTRA_OUTPUT, mMakePhotoUri);
 	startActivityForResult(i, REQUEST_FROM_CAMERA);
 }
