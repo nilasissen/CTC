@@ -7,51 +7,77 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 
 import com.CTC.R;
 import com.CTC.async.WomanAlert;
 
 public class Helpdesk extends Activity implements OnClickListener {
-	Button womenalert, emergencyalert, complianlauge, settings;
+	Button changeInfo, accident, women, complain, fire, medical, photo,
+			entertext, panic;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_helpdesk);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(R.layout.helpdesk);
 
 		initViews();
 
-		womenalert.setOnClickListener(this);
-		emergencyalert.setOnClickListener(this);
-		complianlauge.setOnClickListener(this);
-		settings.setOnClickListener(this);
-
+		changeInfo.setOnClickListener(this);
+		accident.setOnClickListener(this);
+		women.setOnClickListener(this);
+		complain.setOnClickListener(this);
+		fire.setOnClickListener(this);
+		medical.setOnClickListener(this);
+		photo.setOnClickListener(this);
+		entertext.setOnClickListener(this);
+		panic.setOnClickListener(this);
 	}
 
 	private void initViews() {
 		// TODO Auto-generated method stub
-		womenalert = (Button) findViewById(R.id.womenalert);
-		emergencyalert = (Button) findViewById(R.id.emergencyalert);
-		complianlauge = (Button) findViewById(R.id.complianlauge);
-		settings = (Button) findViewById(R.id.settings);
-
+		changeInfo = (Button) findViewById(R.id.changeInfo);
+		accident = (Button) findViewById(R.id.accident);
+		women = (Button) findViewById(R.id.women);
+		complain = (Button) findViewById(R.id.complain);
+		fire = (Button) findViewById(R.id.fire);
+		medical = (Button) findViewById(R.id.medical);
+		photo = (Button) findViewById(R.id.photo);
+		entertext = (Button) findViewById(R.id.entertext);
+		panic = (Button) findViewById(R.id.panic);
 	}
 
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-		case R.id.womenalert:
+		case R.id.changeInfo:
 			askConssent();
 			break;
-		case R.id.emergencyalert:
-			EmergencyAlert();
+		case R.id.accident:
+			//EmergencyAlert();
 			break;
-		case R.id.complianlauge:
+		case R.id.women:
 
 			break;
-		case R.id.settings:
+		case R.id.complain:
+
+			break;
+		case R.id.fire:
+
+			break;
+		case R.id.medical:
+
+			break;
+		case R.id.photo:
+
+			break;
+		case R.id.entertext:
+
+			break;
+		case R.id.panic:
 
 			break;
 
@@ -84,18 +110,19 @@ public class Helpdesk extends Activity implements OnClickListener {
 						}).setIcon(android.R.drawable.ic_dialog_alert).show();
 	}
 
-	private void EmergencyAlert()
-	{
+	/*private void EmergencyAlert() {
 		Button emeralert = (Button) findViewById(R.id.emergencyalert);
 		emeralert.setOnClickListener(new View.OnClickListener() {
-			
+
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				startActivity(new Intent("android.intent.action.EMERGENCYALERT"));
+				Intent i = new Intent(getApplicationContext(),
+						EmergencyAlert.class);
+				startActivity(i);
+				// startActivity(new
+				// Intent("android.intent.action.EMERGENCYALERT"));
 			}
 		});
-	}
+	}*/
 
-	
 }
-
