@@ -1,5 +1,6 @@
 package com.CTC.activity;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -12,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -25,10 +27,13 @@ import com.CTC.async.WomanAlert;
 public class Helpdesk extends Activity implements OnClickListener {
 	Button changeInfo, accident, women, complain, fire, medical, photo,
 			entertext, panic;
-	public Uri mMakePhotoUri;
-	private File sdImageMainDirectory;
-	private Bitmap preview_bitmap;
-	final int REQUEST_FROM_CAMERA=1;
+	private Uri mMakePhotoUri;
+	File sdImageMainDirectory;
+	final int REQUEST_FROM_CAMERA = 1;
+	
+	Bitmap preview_bitmap = null;
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -66,7 +71,7 @@ public class Helpdesk extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.changeInfo:
-			askConssent();
+			
 			break;
 		case R.id.accident:
 			//EmergencyAlert();
@@ -84,13 +89,25 @@ public class Helpdesk extends Activity implements OnClickListener {
 
 			break;
 		case R.id.photo:
+			try {
+				File root = new File(Environment
+						.getExternalStorageDirectory()
+						+ File.separator
+						+ "SmartTrackerDistributerRetailer"
+						+ File.separator);
+				root.mkdirs();
+				sdImageMainDirectory = new File(root,
+						"distrubuter_inbound.JPEG");
+				startCameraActivity();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			startCameraActivity();
 			break;
 		case R.id.entertext:
-
+			new SetInfo(Helpdesk.this).showPopup();
 			break;
 		case R.id.panic:
-			askConssent();
 
 			break;
 
@@ -139,70 +156,71 @@ public class Helpdesk extends Activity implements OnClickListener {
 	}*/
 
 
-protected void startCameraActivity() {
+	
+	
+	protected void startCameraActivity() {
 
-	Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-	 mMakePhotoUri = Uri.fromFile(sdImageMainDirectory);
-	i.putExtra(MediaStore.EXTRA_OUTPUT, mMakePhotoUri);
-	startActivityForResult(i, REQUEST_FROM_CAMERA);
-}
-@Override
-protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-	switch (resultCode) {
-	case RESULT_OK:
+		Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		mMakePhotoUri = Uri.fromFile(sdImageMainDirectory);
+		i.putExtra(MediaStore.EXTRA_OUTPUT, mMakePhotoUri);
+		startActivityForResult(i, REQUEST_FROM_CAMERA);
+	}
+	
+	
+	public Bitmap getResizedBitmap(Bitmap image, int bitmapWidth,
+			int bitmapHeight) {
+		return Bitmap
+				.createScaledBitmap(image, bitmapWidth, bitmapHeight, true);
+	}
 
-		//latlon = fetchCurrentLocation();
-		// Log.v("", msg);
+	private byte[] getImageBytes(Bitmap bm) {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		bm.compress(Bitmap.CompressFormat.JPEG, 100, baos); // bm is the bitmap
+															// object
+		byte[] b = baos.toByteArray();
+		return b;
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (resultCode) {
+		case RESULT_OK:
 
-		InputStream is = null;
+			
 
-		/*
-		 * File file = sdImageMainDirectory; try { is = new
-		 * FileInputStream(file);
-		 * 
-		 * } catch (FileNotFoundException e) { e.printStackTrace(); }
-		 */
+			InputStream is = null;
 
-		if (is == null) {
-			try {
-				if (data != null) {
-					Uri u = data.getData();
-					Log.v("Uri", u.toString());
-					is = getContentResolver().openInputStream(u);
-				} else if (data == null && mMakePhotoUri != null) {
-					Uri u = mMakePhotoUri;
-					is = getContentResolver().openInputStream(u);
+			/*
+			 * File file = sdImageMainDirectory; try { is = new
+			 * FileInputStream(file);
+			 * 
+			 * } catch (FileNotFoundException e) { e.printStackTrace(); }
+			 */
+
+			if (is == null) {
+				try {
+					if (data != null) {
+						Uri u = data.getData();
+						Log.v("Uri", u.toString());
+						is = getContentResolver().openInputStream(u);
+					} else if (data == null && mMakePhotoUri != null) {
+						Uri u = mMakePhotoUri;
+						is = getContentResolver().openInputStream(u);
+					}
+
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
 				}
 
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
 			}
+			BitmapFactory.Options options = new BitmapFactory.Options();
+			preview_bitmap = BitmapFactory.decodeStream(is, null, options);
+			preview_bitmap = getResizedBitmap(preview_bitmap, 800, 600);
+			break;
 
+		default: // do nothing
+			super.onActivityResult(requestCode, resultCode, data);
 		}
-
-		// tv_dis_photo.setVisibility(View.GONE);
-		// imv_dis_photo.setVisibility(View.VISIBLE);
-		//image_capture_flag = true;
-
-		// Bitmap bmp = BitmapFactory.decodeStream(is);
-		// imv_retailer_photo.setImageBitmap(bmp);
-
-		BitmapFactory.Options options = new BitmapFactory.Options();
-		// options.inSampleSize = 1;
-		preview_bitmap = BitmapFactory.decodeStream(is, null, options);
-		preview_bitmap = getResizedBitmap(preview_bitmap, 800, 600);
-		// imv_dis_photo.setImageBitmap(preview_bitmap);
-
-		break;
-
-	default: // do nothing
-		super.onActivityResult(requestCode, resultCode, data);
 	}
-}
 
-public Bitmap getResizedBitmap(Bitmap image, int bitmapWidth,
-		int bitmapHeight) {
-	return Bitmap
-			.createScaledBitmap(image, bitmapWidth, bitmapHeight, true);
-}
 }

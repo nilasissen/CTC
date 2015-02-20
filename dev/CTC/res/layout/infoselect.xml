@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="500dp"
+    android:background="#ffffff" >
+
+  
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" >
+
+        <EditText
+            android:id="@+id/textContent"
+            android:layout_width="fill_parent"
+            android:layout_height="80dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:hint="Enter text message.." >
+        </EditText>
+
+        <CheckBox
+            android:id="@+id/photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textContent"
+            android:layout_below="@+id/textContent"
+            android:layout_marginTop="18dp"
+            android:text="Send Photo"
+            android:textColor="#000000" />
+
+        <CheckBox
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/photo"
+            android:layout_alignBottom="@+id/photo"
+            android:layout_alignRight="@+id/textContent"
+            android:text="Send Location"
+            android:textColor="#000000" />
+
+        <LinearLayout
+            android:id="@+id/lay"
+            android:layout_width="fill_parent"
+            android:layout_height="300dp"
+            android:layout_below="@id/location"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/capturedImage"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/latlon"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#000000"
+                android:visibility="gone" >
+            </TextView>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/changeInfo"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lay"
+            android:layout_centerHorizontal="true"
+            android:text="set" />
+    </RelativeLayout>
+
+</RelativeLayout>
