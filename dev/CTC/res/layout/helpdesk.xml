@@ -10,7 +10,7 @@
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="#667453" >
+        android:background="@color/header" >
 
         <TextView
             android:layout_width="wrap_content"
@@ -44,7 +44,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-
             android:orientation="horizontal"
             android:weightSum="3" >
 
@@ -52,7 +51,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-              
                 android:orientation="vertical" >
 
                 <Button
@@ -79,7 +77,6 @@
                 android:layout_height="fill_parent"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                
                 android:orientation="vertical" >
 
                 <Button
@@ -96,7 +93,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                
                 android:orientation="vertical" >
 
                 <Button
@@ -123,7 +119,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            
             android:orientation="horizontal"
             android:weightSum="2" >
 
@@ -149,8 +144,7 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-             >
+            android:layout_weight="2" >
 
             <Button
                 android:id="@+id/panic"

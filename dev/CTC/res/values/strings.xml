@@ -4,6 +4,11 @@
     <string name="app_name">CTC</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="no1_text">Enter Emgergency Number 1 :</string>
+    <string name="no2_text">Enter Emgergency Number 2 :</string>
+    <string name="no3_text">Enter Emgergency Number 3 :</string>
+    <string name="submit_text">SUBMIT</string>
+    
     <!-- <string name="title_activity_helpdesk">Helpdesk</string> -->
 
 </resources>

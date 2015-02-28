@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,13 +13,16 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.CTC.R;
@@ -30,14 +34,21 @@ public class Helpdesk extends Activity implements OnClickListener {
 	private Uri mMakePhotoUri;
 	File sdImageMainDirectory;
 	final int REQUEST_FROM_CAMERA = 1;
-	
-	Bitmap preview_bitmap = null;
 
+	Bitmap bmp = null;
 
+	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			Window window = this.getWindow();
+			window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+			window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+			window.setStatusBarColor(this.getResources().getColor(
+					R.color.status));
+		}
 		setContentView(R.layout.helpdesk);
 
 		initViews();
@@ -69,12 +80,14 @@ public class Helpdesk extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
+		Enter_EM_Contact em_Contact = null;
 		switch (v.getId()) {
 		case R.id.changeInfo:
-			
+			em_Contact = new Enter_EM_Contact(Helpdesk.this);
+			em_Contact.ShowPopup();
 			break;
 		case R.id.accident:
-			//EmergencyAlert();
+			// EmergencyAlert();
 			break;
 		case R.id.women:
 
@@ -90,19 +103,16 @@ public class Helpdesk extends Activity implements OnClickListener {
 			break;
 		case R.id.photo:
 			try {
-				File root = new File(Environment
-						.getExternalStorageDirectory()
-						+ File.separator
-						+ "SmartTrackerDistributerRetailer"
+				File root = new File(Environment.getExternalStorageDirectory()
+						+ File.separator + "CTC_phoots"
 						+ File.separator);
 				root.mkdirs();
 				sdImageMainDirectory = new File(root,
-						"distrubuter_inbound.JPEG");
+						"panic_photo.JPEG");
 				startCameraActivity();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			startCameraActivity();
 			break;
 		case R.id.entertext:
 			new SetInfo(Helpdesk.this).showPopup();
@@ -140,24 +150,17 @@ public class Helpdesk extends Activity implements OnClickListener {
 						}).setIcon(android.R.drawable.ic_dialog_alert).show();
 	}
 
-	/*private void EmergencyAlert() {
-		Button emeralert = (Button) findViewById(R.id.emergencyalert);
-		emeralert.setOnClickListener(new View.OnClickListener() {
+	/*
+	 * private void EmergencyAlert() { Button emeralert = (Button)
+	 * findViewById(R.id.emergencyalert); emeralert.setOnClickListener(new
+	 * View.OnClickListener() {
+	 * 
+	 * public void onClick(View v) { // TODO Auto-generated method stub Intent i
+	 * = new Intent(getApplicationContext(), EmergencyAlert.class);
+	 * startActivity(i); // startActivity(new //
+	 * Intent("android.intent.action.EMERGENCYALERT")); } }); }
+	 */
 
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent i = new Intent(getApplicationContext(),
-						EmergencyAlert.class);
-				startActivity(i);
-				// startActivity(new
-				// Intent("android.intent.action.EMERGENCYALERT"));
-			}
-		});
-	}*/
-
-
-	
-	
 	protected void startCameraActivity() {
 
 		Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -165,8 +168,7 @@ public class Helpdesk extends Activity implements OnClickListener {
 		i.putExtra(MediaStore.EXTRA_OUTPUT, mMakePhotoUri);
 		startActivityForResult(i, REQUEST_FROM_CAMERA);
 	}
-	
-	
+
 	public Bitmap getResizedBitmap(Bitmap image, int bitmapWidth,
 			int bitmapHeight) {
 		return Bitmap
@@ -180,13 +182,11 @@ public class Helpdesk extends Activity implements OnClickListener {
 		byte[] b = baos.toByteArray();
 		return b;
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (resultCode) {
 		case RESULT_OK:
-
-			
 
 			InputStream is = null;
 
@@ -214,8 +214,8 @@ public class Helpdesk extends Activity implements OnClickListener {
 
 			}
 			BitmapFactory.Options options = new BitmapFactory.Options();
-			preview_bitmap = BitmapFactory.decodeStream(is, null, options);
-			preview_bitmap = getResizedBitmap(preview_bitmap, 800, 600);
+			bmp = BitmapFactory.decodeStream(is, null, options);
+			bmp = getResizedBitmap(bmp, 800, 600);
 			break;
 
 		default: // do nothing
