@@ -17,6 +17,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -26,7 +27,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.CTC.R;
+import com.CTC.activity.model.PanicModel;
 import com.CTC.async.WomanAlert;
+import com.CTC.util.CacheDATA;
 
 public class Helpdesk extends Activity implements OnClickListener {
 	Button changeInfo, accident, women, complain, fire, medical, photo,
@@ -36,6 +39,17 @@ public class Helpdesk extends Activity implements OnClickListener {
 	final int REQUEST_FROM_CAMERA = 1;
 
 	Bitmap bmp = null;
+	
+	private PanicModel model;
+	
+	private CacheDATA data;
+	private Enter_EM_Contact em_Contact;
+
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		finish();
+	}
 
 	@SuppressLint("NewApi")
 	@Override
@@ -62,6 +76,14 @@ public class Helpdesk extends Activity implements OnClickListener {
 		photo.setOnClickListener(this);
 		entertext.setOnClickListener(this);
 		panic.setOnClickListener(this);
+		
+		
+		model = new PanicModel();
+		data = new CacheDATA(Helpdesk.this);
+		if (!data.getEM_number_exists()) {
+			em_Contact = new Enter_EM_Contact(Helpdesk.this);
+			em_Contact.ShowPopup();
+		}
 	}
 
 	private void initViews() {
@@ -80,7 +102,6 @@ public class Helpdesk extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		Enter_EM_Contact em_Contact = null;
 		switch (v.getId()) {
 		case R.id.changeInfo:
 			em_Contact = new Enter_EM_Contact(Helpdesk.this);
@@ -104,7 +125,7 @@ public class Helpdesk extends Activity implements OnClickListener {
 		case R.id.photo:
 			try {
 				File root = new File(Environment.getExternalStorageDirectory()
-						+ File.separator + "CTC_phoots"
+						+ File.separator + "CTC_photos"
 						+ File.separator);
 				root.mkdirs();
 				sdImageMainDirectory = new File(root,
@@ -115,7 +136,7 @@ public class Helpdesk extends Activity implements OnClickListener {
 			}
 			break;
 		case R.id.entertext:
-			new SetInfo(Helpdesk.this).showPopup();
+			new SetInfo(Helpdesk.this,model).showPopup();
 			break;
 		case R.id.panic:
 
@@ -126,29 +147,29 @@ public class Helpdesk extends Activity implements OnClickListener {
 		}
 	}
 
-	private void askConssent() {
-		// TODO Auto-generated method stub
-		new AlertDialog.Builder(this)
-				.setTitle("ALERT!!")
-				.setMessage("Are you sure you want to send any alert??")
-				.setPositiveButton(android.R.string.yes,
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int which) {
-								// continue with delete
-								new WomanAlert(Helpdesk.this).execute();
-							}
-						})
-				.setNegativeButton(android.R.string.no,
-						new DialogInterface.OnClickListener() {
-							@SuppressWarnings("deprecation")
-							public void onClick(DialogInterface dialog,
-									int which) {
-								// do nothing
-								dismissDialog(0);
-							}
-						}).setIcon(android.R.drawable.ic_dialog_alert).show();
-	}
+//	private void askConssent() {
+//		// TODO Auto-generated method stub
+//		new AlertDialog.Builder(this)
+//				.setTitle("ALERT!!")
+//				.setMessage("Are you sure you want to send any alert??")
+//				.setPositiveButton(android.R.string.yes,
+//						new DialogInterface.OnClickListener() {
+//							public void onClick(DialogInterface dialog,
+//									int which) {
+//								// continue with delete
+//								new WomanAlert(Helpdesk.this).execute();
+//							}
+//						})
+//				.setNegativeButton(android.R.string.no,
+//						new DialogInterface.OnClickListener() {
+//							@SuppressWarnings("deprecation")
+//							public void onClick(DialogInterface dialog,
+//									int which) {
+//								// do nothing
+//								dismissDialog(0);
+//							}
+//						}).setIcon(android.R.drawable.ic_dialog_alert).show();
+//	}
 
 	/*
 	 * private void EmergencyAlert() { Button emeralert = (Button)
@@ -216,6 +237,14 @@ public class Helpdesk extends Activity implements OnClickListener {
 			BitmapFactory.Options options = new BitmapFactory.Options();
 			bmp = BitmapFactory.decodeStream(is, null, options);
 			bmp = getResizedBitmap(bmp, 800, 600);
+			
+			String encodedImageString = null;
+			encodedImageString = Base64.encodeToString(getImageBytes(bmp), Base64.DEFAULT);
+			Log.v("IMAGE", encodedImageString);
+			
+			
+			model.setPicture(bmp);
+			
 			break;
 
 		default: // do nothing

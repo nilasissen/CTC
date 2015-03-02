@@ -4,11 +4,9 @@
     android:layout_height="500dp"
     android:background="#ffffff" >
 
-  
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true" >
 
@@ -22,8 +20,8 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:ems="10"
-            android:inputType="textMultiLine"
-            android:hint="Enter text message.." >
+            android:hint="Enter text message.."
+            android:inputType="textMultiLine" >
         </EditText>
 
         <CheckBox

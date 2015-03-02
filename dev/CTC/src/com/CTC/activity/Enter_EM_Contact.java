@@ -13,6 +13,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.CTC.R;
@@ -23,7 +24,8 @@ import com.CTC.util.PhoneContacts;
 
 public class Enter_EM_Contact {
 	private Context context;
-	private AutoCompleteTextView em1,em2,em3;
+	private AutoCompleteTextView em1, em2, em3;
+	private EditText em_text;
 	private Button em_submit;
 	private CacheDATA cacheDATA;
 	private ArrayList<ContactListMOdel> list = new ArrayList<ContactListMOdel>();
@@ -41,17 +43,19 @@ public class Enter_EM_Contact {
 		final Dialog dialog = new Dialog(context);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.enter_em);
+		
+		dialog.setCancelable(false);
 
 		em1 = (AutoCompleteTextView) dialog.findViewById(R.id.em1);
 		em2 = (AutoCompleteTextView) dialog.findViewById(R.id.em2);
 		em3 = (AutoCompleteTextView) dialog.findViewById(R.id.em3);
+		em_text = (EditText) dialog.findViewById(R.id.em_text);
 		em_submit = (Button) dialog.findViewById(R.id.em_submit);
-		
-		
+
 		em1.setText(cacheDATA.getEM1());
 		em2.setText(cacheDATA.getEM2());
 		em3.setText(cacheDATA.getEM3());
-		
+		em_text.setText(cacheDATA.getEM_TEXT());
 
 		list = contacts.getNumberList(context.getContentResolver());
 
@@ -71,8 +75,7 @@ public class Enter_EM_Contact {
 		em3.setThreshold(0);
 		em3.setAdapter(list_adap);
 		em3.setThreshold(0);
-		
-		
+
 		em1.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -110,6 +113,7 @@ public class Enter_EM_Contact {
 					cacheDATA.storeData(em1.getText().toString().trim(), em2
 							.getText().toString().trim(), em3.getText()
 							.toString().trim());
+					cacheDATA.store_EM_TEXT(em_text.getText().toString().trim());
 					Toast.makeText(context, "DONE", Toast.LENGTH_LONG).show();
 					dialog.dismiss();
 				}
@@ -132,7 +136,17 @@ public class Enter_EM_Contact {
 					Toast.makeText(context, Constant.TOAST_NUMBER_FORMAT,
 							Toast.LENGTH_LONG).show();
 					return false;
-				} else {
+				} else if (em_text.getText().toString().trim().length() <= 1) {
+					Toast.makeText(context, Constant.TOAST_Emeergency_TEXT,
+							Toast.LENGTH_LONG).show();
+					return false;
+				} else if (em_text.getText().toString().trim().length() > 140) {
+					Toast.makeText(context,
+							Constant.TOAST_Emeergency_TEXT_exid,
+							Toast.LENGTH_LONG).show();
+					return false;
+				}
+				else {
 					return true;
 				}
 

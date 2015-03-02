@@ -94,13 +94,24 @@
             android:layout_weight="1"
             android:orientation="vertical" >
 
+            <EditText
+                android:id="@+id/em_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColorHint="#FF0000"
+                android:gravity="center_vertical"
+                android:hint="enter emergency text"
+                android:nextFocusDown="@+id/em_submit" />
+
             <Button
                 android:id="@+id/em_submit"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_margin="20dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/button_bk"
                 android:gravity="center"
+                android:layout_margin="20dp"
                 android:text="@string/submit_text" />
         </LinearLayout>
     </LinearLayout>

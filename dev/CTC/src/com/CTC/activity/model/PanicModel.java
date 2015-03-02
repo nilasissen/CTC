@@ -6,7 +6,7 @@ import android.graphics.Bitmap;
 
 public class PanicModel implements Serializable {
 	Bitmap picture;
-	String LAT_LON, EM1, EM2, EM3;
+	String LAT_LON, EM1, EM2, EM3, EM_TEXT;
 
 	public Bitmap getPicture() {
 		return picture;
@@ -46,6 +46,14 @@ public class PanicModel implements Serializable {
 
 	public void setEM3(String eM3) {
 		EM3 = eM3;
+	}
+
+	public String getEM_TEXT() {
+		return EM_TEXT;
+	}
+
+	public void setEM_TEXT(String eM_TEXT) {
+		EM_TEXT = eM_TEXT;
 	}
 
 }
